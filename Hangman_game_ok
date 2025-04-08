@@ -1,0 +1,114 @@
+import random
+from colorama import Fore, Style, init
+
+# Initialize colorama
+init(autoreset=True)
+
+def print_hangman(tries):
+    stages = [
+        """
+           -----
+           |   |
+           O   |
+          /|\\  |
+          / \\  |
+               |
+           --------
+        """,
+        """
+           -----
+           |   |
+           O   |
+          /|\\  |
+          /    |
+               |
+           --------
+        """,
+        """
+           -----
+           |   |
+           O   |
+          /|\\  |
+               |
+               |
+           --------
+        """,
+        """
+           -----
+           |   |
+           O   |
+          /|   |
+               |
+               |
+           --------
+        """,
+        """
+           -----
+           |   |
+           O   |
+           |   |
+               |
+               |
+           --------
+        """,
+        """
+           -----
+           |   |
+           O   |
+               |
+               |
+               |
+           --------
+        """,
+        """
+           -----
+           |   |
+               |
+               |
+               |
+               |
+           --------
+        """
+    ]
+    print(stages[tries])
+
+def get_random_word():
+    words = ["python", "programming", "hangman", "challenge", "developer", "coding"]
+    return random.choice(words)
+
+def display_word(word, guessed_letters):
+    return " ".join([letter if letter in guessed_letters else "_" for letter in word])
+
+def hangman():
+    word = get_random_word()
+    guessed_letters = []
+    tries = 6
+    game_over = False
+
+    print(Fore.GREEN + "Welcome to Hangman!" + Style.RESET_ALL)
+    print(Fore.BLUE + "Guess the word: " + display_word(word, guessed_letters))
+
+    while not game_over:
+        guess = input(Fore.YELLOW + "Enter a letter: " + Style.RESET_ALL).lower()
+
+        if guess in guessed_letters:
+            print(Fore.RED + "You already guessed that letter!" + Style.RESET_ALL)
+        elif guess in word:
+            guessed_letters.append(guess)
+            print(Fore.GREEN + "Good job! The letter is in the word." + Style.RESET_ALL)
+        else:
+            tries -= 1
+            print(Fore.RED + f"Wrong guess! You have {tries} tries left." + Style.RESET_ALL)
+            print_hangman(tries)
+
+        print(Fore.BLUE + "Word: " + display_word(word, guessed_letters))
+
+        if "_" not in display_word(word, guessed_letters):
+            print(Fore.GREEN + "Congratulations! You guessed the word: " + word + Style.RESET_ALL)
+            game_over = True
+        elif tries == 0:
+            print(Fore.RED + "You lost! The word was: " + word + Style.RESET_ALL)
+            game_over = True
+
+if __name__ == "__main__":
+    hangman()

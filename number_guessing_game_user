@@ -1,0 +1,39 @@
+
+import random
+from termcolor import colored  # For colorful text
+
+# Function to play the game
+def guess_the_number():
+    print(colored("🎮 Welcome to the Guess the Number Game! 🎮", "blue", attrs=["bold"]))
+    print(colored("----------------------------------------", "yellow"))
+    
+    # Generate a random number between 1 and 100
+    number_to_guess = random.randint(1, 100)
+    attempts = 0
+    max_attempts = 10
+    
+    print(colored(f"I'm thinking of a number between 1 and 100. Can you guess it? You have {max_attempts} attempts.", "green"))
+    
+    while attempts < max_attempts:
+        try:
+            # Get user's guess
+            guess = int(input(colored("Enter your guess: ", "magenta")))
+            attempts += 1
+            
+            # Check if the guess is correct
+            if guess < number_to_guess:
+                print(colored("Too low! Try again.", "red"))
+            elif guess > number_to_guess:
+                print(colored("Too high! Try again.", "red"))
+            else:
+                print(colored(f"🎉 Congratulations! You guessed the number in {attempts} attempts!", "green", attrs=["bold"]))
+                break
+        except ValueError:
+            print(colored("⚠️ Please enter a valid number!", "yellow"))
+    
+    # If the user runs out of attempts
+    if attempts >= max_attempts:
+        print(colored(f"😢 Game over! The number was {number_to_guess}. Better luck next time!", "red", attrs=["bold"]))
+
+# Run the game
+guess_the_number()

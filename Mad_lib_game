@@ -1,0 +1,59 @@
+import streamlit as st
+
+# Page configuration
+st.set_page_config(
+    page_title="Mad Libs Game Create by Shaista Tosif",
+    page_icon="🎮",
+    layout="centered",
+    initial_sidebar_state="collapsed"
+)
+
+# Custom CSS for black background and colorful text
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background-color: black;
+        color: white;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        color: #FF5733;
+    }
+    .stTextInput>div>div>input {
+        color: #33FF57;
+        background-color: black;
+    }
+    .stButton>button {
+        color: black;
+        background-color: #33FF57;
+        border-radius: 5px;
+        border: none;
+        padding: 10px 20px;
+    }
+    .stButton>button:hover {
+        background-color: #28a745;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# Mad Libs Game
+st.title("🎮 Mad Libs Game 🎮")
+
+# Input fields
+st.header("Enter the following words:")
+adjective = st.text_input("Adjective")
+noun = st.text_input("Noun")
+verb = st.text_input("Verb")
+place = st.text_input("Place")
+animal = st.text_input("Animal")
+
+# Generate story button
+if st.button("Generate Story"):
+    if adjective and noun and verb and place and animal:
+        story = f"Once upon a time, there was a {adjective} {noun} who loved to {verb} in {place}. One day, the {noun} met a {animal} and they became best friends!"
+        st.success("Here's your Mad Libs story:")
+        st.markdown(f"<p style='color:#33FF57; font-size:20px;'>{story}</p>", unsafe_allow_html=True)
+    else:
+        st.error("Please fill in all the fields to generate the story!")

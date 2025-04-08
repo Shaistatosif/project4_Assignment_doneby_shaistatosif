@@ -1,0 +1,33 @@
+import time
+from colorama import Fore, Style, init
+
+# Initialize colorama
+init(autoreset=True)
+
+def countdown_timer(seconds):
+    while seconds:
+        # Calculate minutes and seconds
+        mins, secs = divmod(seconds, 60)
+        timer = f"{Fore.GREEN}{mins:02d}:{Fore.YELLOW}{secs:02d}{Style.RESET_ALL}"
+        
+        # Print the timer
+        print(timer, end="\r")
+        
+        # Wait for 1 second
+        time.sleep(1)
+        
+        # Decrease the time
+        seconds -= 1
+    
+    # When the timer ends
+    print(f"{Fore.RED}Time's up!{Style.RESET_ALL}")
+
+if __name__ == "__main__":
+    try:
+        # Ask the user for the countdown time
+        time_input = int(input("Enter the countdown time in seconds: "))
+        
+        # Start the countdown
+        countdown_timer(time_input)
+    except ValueError:
+        print(f"{Fore.RED}Please enter a valid number!{Style.RESET_ALL}")
